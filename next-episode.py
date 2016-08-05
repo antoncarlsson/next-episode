@@ -2,7 +2,7 @@ import requests
 import sys
 from bs4 import BeautifulSoup
 
-NEXT_EPISODE_URL = "http://next-episode.net/{}"
+NEXT_EPISODE_URL = "http://next-episode.net/"
 
 class EpisodeInfoNotAvailableError(Exception):
     def __init__(self, message):
@@ -40,12 +40,11 @@ class NextEpisode(object):
     
     def _search(self, series_name):
         string        = series_name.replace(" ", "-")
-        self.__url    = NEXT_EPISODE_URL.format(string)
-        page          = requests.get(self.__url)
+        self.__url    = NEXT_EPISODE_URL + string
+        page          = requests.get(self.__url, headers = {"User-agent": "Mozilla/5.0"})
         soup          = BeautifulSoup(page.content, "lxml")
         self.__result = soup.find("div", id = "next_episode")
         
     
 ne = NextEpisode(sys.argv[1])
 print(ne)
-
