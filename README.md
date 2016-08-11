@@ -17,6 +17,7 @@ print(s1)
 
 # print just the episode's name
 print(s1.episode_name)
+```
 
 Episode details available
 ==================
